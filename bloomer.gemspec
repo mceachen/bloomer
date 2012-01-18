@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
-require "bloomer/version"
+
+require "bloomer"
 
 Gem::Specification.new do |s|
   s.name        = "bloomer"
@@ -8,8 +9,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Matthew McEachen"]
   s.email       = ["matthew+github@mceachen.org"]
   s.homepage    = ""
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.summary     = %q{Pure-ruby bloom filter with minimal dependencies}
+  s.description = %q{Pure-ruby bloom filter with minimal dependencies}
 
   s.rubyforge_project = "bloomer"
 
@@ -18,7 +19,5 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
-  # specify any dependencies here; for example:
-  # s.add_development_dependency "rspec"
-  # s.add_runtime_dependency "rest-client"
+  s.add_dependency "bitarray"
 end
