@@ -8,8 +8,9 @@ Note that false positives with bloom filters *are possible*, but false negatives
 
 In other words,
 
-* if ```include?``` returns true, it *might* mean that string was ```add```ed
-* if ```include?``` returns ```false```, that string has *certainly not* been ```add```ed
+* if ```include?``` returns *false*, that string has *certainly not* been ```add```ed
+* if ```include?``` returns *true*, it *might* mean that string was ```add```ed (depending on the "false_positive_probability"
+parameter provided to the constructor).
 
 This implementation is the Nth bloom filter gem written in ruby -- but, at the time of conception, the only one that
 
