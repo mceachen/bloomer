@@ -4,6 +4,10 @@
 [Bloom filters](http://en.wikipedia.org/wiki/Bloom_filter) are great for quickly checking to see if
 a given string has been seen before--in constant time, and using a fixed amount of RAM.
 
+Note that false positives with bloom filters *are possible*, but false negatives are not. In other words,
+if ```include?``` returns true, it *might* mean that string was ```added```. If ```include?``` returns
+```false```, that string definitely has *not* been ```add```ed.
+
 This implementation is the Nth bloom filter gem written in ruby -- but, at the time of conception, the only one that
 
 * uses a robust set of hashing functions
