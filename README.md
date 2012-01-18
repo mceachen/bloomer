@@ -7,6 +7,7 @@ a given string has been seen before--in constant time, and using a fixed amount 
 Note that false positives with bloom filters *are possible*, but false negatives are not.
 
 In other words,
+
 * if ```include?``` returns true, it *might* mean that string was ```add```ed
 * if ```include?``` returns ```false```, that string has *certainly not* been ```add```ed
 
