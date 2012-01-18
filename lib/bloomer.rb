@@ -3,18 +3,16 @@ require 'bitarray'
 class Bloomer
   VERSION = "0.0.1"
 
-  # Thanks, https://github.com/arya/bloom_filter/blob/master/lib/bloom_filter.rb
-  def self.optimal_values(expected_size, false_positive_probability)
-    m = -(expected_size * Math.log(false_positive_probability)) / (Math.log(2) ** 2)
-    k = Math.log(2) * (m / expected_size)
-    [m.round, k.round]
-  end
+  def initialize(expected_size, false_positive_probability = 0.001, opts = {})
+    @ba = opts[:ba] || begin
+      # m is the required number of bits in the array
+      m = -(expected_size * Math.log(false_positive_probability)) / (Math.log(2) ** 2)
+      BitArray.new(m.round)
+    end
 
-  # m is the required number of bits in the array
-  # k is the number of hash functions that minimizes the probability of false positives
-  def initialize(m, k)
-    @ba = ::BitArray.new(m)
-    @hashes = Hashes.build(k)
+    # k is the number of hash functions that minimizes the probability of false positives
+    k = opts[:k] || Math.log(2) * (@ba.size / expected_size)
+    @hashes = Hashes.build(k.round)
   end
 
   def add string
@@ -25,9 +23,13 @@ class Bloomer
     !indicies(string).any? { |ea| @ba[ea] == 0 }
   end
 
-  def to_s
-    # TODO: REVISIT
-    @ba.to_s
+  def _dump(depth)
+    [@hashes.size, Marshal.dump(@ba)].join("\n")
+  end
+
+  def self._load(data)
+    k, ba = data.split("\n", 2)
+    new(nil, nil, :k => k.to_i, :ba => Marshal.load(ba))
   end
 
   private

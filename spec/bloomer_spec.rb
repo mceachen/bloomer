@@ -8,7 +8,7 @@ end
 describe Bloomer do
 
   it "should work trivially" do
-    b = Bloomer.new(*Bloomer.optimal_values(10, 0.001))
+    b = Bloomer.new(10, 0.001)
     b.add("a")
     b.should include("a")
     b.should_not include("")
@@ -21,7 +21,7 @@ describe Bloomer do
   end
 
   it "should find random strings" do
-    b = Bloomer.new(*Bloomer.optimal_values(5_000, 0.001))
+    b = Bloomer.new(5_000, 0.001)
     inputs = 1000.times.collect { rand_alpha(Kernel.rand(50)) }
     inputs.each { |ea| b.add(ea) }
     inputs.each { |ea| b.include?(ea).should be_true }
@@ -31,5 +31,12 @@ describe Bloomer do
     end
   end
 
-  it "should marshal state correctly"
+  it "should marshal state correctly" do
+    b = Bloomer.new(10, 0.001)
+    inputs = %q(a b c d)
+    inputs.each{|ea|b.add(ea)}
+    s = Marshal.dump(b)
+    new_b = Marshal.load(s)
+    inputs.each{|ea|new_b.should include(ea)}
+  end
 end
