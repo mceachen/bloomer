@@ -11,7 +11,7 @@ Note that false positives with bloom filters *are possible*, but false negatives
 
 This implementation is the Nth bloom filter gem written in ruby -- but, at the time of conception, the only one that
 
-* uses triple hash chaining, based on MD5 (see [the paper](http://www.ccs.neu.edu/home/pete/pub/bloom-filters-verification.pdf))
+* uses triple hash chains (see [the paper](http://www.ccs.neu.edu/home/pete/pub/bloom-filters-verification.pdf))
 * can marshal state quickly
 * does not require EM or Redis or something else unrelated to simply implementing a bloom filter
 
