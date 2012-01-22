@@ -1,5 +1,4 @@
 require "spec_helper"
-require "benchmark"
 
 C = ('a'..'z').to_a
 def rand_word(length = 8)
