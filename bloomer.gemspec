@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.version     = Bloomer::VERSION
   s.authors     = ["Matthew McEachen"]
   s.email       = ["matthew+github@mceachen.org"]
-  s.homepage    = ""
+  s.homepage    = "https://github.com/mceachen/bloomer"
   s.summary     = %q{Pure-ruby bloom filter with minimal dependencies}
   s.description = %q{Pure-ruby bloom filter with minimal dependencies}
 

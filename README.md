@@ -43,4 +43,10 @@ new_b.include? "a"
 
 * 0.0.1 Bloom, there it is.
 
+* 0.0.2 Switch to triple hash chaining, which resulted in better, faster hashing (!!):
+
+  md5 (v0.0.2): 66 sec, false positive rate = 1.116%, expected 1.0%
+  multihash (0.0.1): 92 sec, false positive rate = 1.27%, expected 1.0%
+
+
 
