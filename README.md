@@ -5,12 +5,12 @@ a given string has been seen before--in constant time, and using a fixed amount 
 as you know the expected number of elements up front. If you add more than ```capacity``` elements to the filter,
 accuracy for ```include?``` will drop below ```false_positive_probability```.
 
-[Scalable Bloom Filters](http://gsd.di.uminho.pt/members/cbm/ps/dbloom.pdf) maintain a ```false_positive_probability```
+[Scalable Bloom Filters](http://gsd.di.uminho.pt/members/cbm/ps/dbloom.pdf) maintain a maximal ```false_positive_probability```
 by using additional RAM as needed.
 
 ```Bloomer``` is a Bloom Filter. ```Bloomer::Scalable``` is a Scalable Bloom Filter.
 
-Keep in mind that false positives with Bloom Filters *are expected* with a specified probability rate.
+Keep in mind that **false positives with Bloom filters are expected**, with a specified probability rate.
 False negatives, however, are not. In other words,
 
 * if ```include?``` returns *false*, that string has *certainly not* been ```add```ed
