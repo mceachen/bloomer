@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
 
-require "bloomer"
+require "bloomer/version"
 
 Gem::Specification.new do |s|
   s.name        = "bloomer"
@@ -20,4 +20,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_dependency "bitarray"
+  s.add_development_dependency "rake"
+  s.add_development_dependency "yard"
+  s.add_development_dependency "rspec", "~> 2.7.0"
 end

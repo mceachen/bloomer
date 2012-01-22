@@ -66,5 +66,5 @@ new_b.include? "a"
 * 0.0.1 Bloom, there it is.
 * 0.0.2 Switch to triple-hash chaining (simpler, faster, and better false-positive rate)
 * 0.0.3 Added support for scalable bloom filters (SBF)
-
+* 0.0.4 Fixed gem packaging
 

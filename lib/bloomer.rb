@@ -2,8 +2,6 @@ require 'bitarray'
 require 'digest/md5'
 
 class Bloomer
-  VERSION = "0.0.3"
-
   def initialize(capacity, false_positive_probability = 0.001)
     @capacity = capacity.round
     # m is the required number of bits in the array
