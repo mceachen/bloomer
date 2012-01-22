@@ -11,7 +11,7 @@ Note that false positives with bloom filters *are possible*, but false negatives
 
 This implementation is the Nth bloom filter gem written in ruby -- but, at the time of conception, the only one that
 
-* uses a robust set of hashing functions
+* uses triple hash chaining, based on MD5 (see [the paper](http://www.ccs.neu.edu/home/pete/pub/bloom-filters-verification.pdf))
 * can marshal state quickly
 * does not require EM or Redis or something else unrelated to simply implementing a bloom filter
 
@@ -45,8 +45,8 @@ new_b.include? "a"
 
 * 0.0.2 Switch to triple hash chaining, which resulted in better, faster hashing (!!):
 
-  md5 (v0.0.2): 66 sec, false positive rate = 1.116%, expected 1.0%
-  multihash (0.0.1): 92 sec, false positive rate = 1.27%, expected 1.0%
+  old multi-hash (v0.0.1): 92 sec, false positive rate = 1.27%, expected 1.0%
+  new md5 triple (v0.0.2): 66 sec, false positive rate = 1.116%, expected 1.0%
 
 
 
