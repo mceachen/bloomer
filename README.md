@@ -1,12 +1,12 @@
-# Bloomer: A Scalable  pure-ruby Bloom filter
+# Bloomer: Bloom filters with elastic
 
 [Bloom filters](http://en.wikipedia.org/wiki/Bloom_filter) are great for quickly checking to see if
 a given string has been seen before--in constant time, and using a fixed amount of RAM, as long
-as you know the expected number of elements up front.
+as you know the expected number of elements up front. If you add more than ```capacity``` elements to the filter,
+accuracy for ```include?``` will drop below ```false_positive_probability```.
 
-[Scalable Bloom Filters](http://gsd.di.uminho.pt/members/cbm/ps/dbloom.pdf) allow you to establish an
-initial capacity, but dynamically scale past that and maintain a false_positive_probability at the expense of
-growing the RAM requirements.
+[Scalable Bloom Filters](http://gsd.di.uminho.pt/members/cbm/ps/dbloom.pdf) maintain a ```false_positive_probability```
+by using additional RAM as needed.
 
 ```Bloomer``` is a Bloom Filter. ```Bloomer::Scalable``` is a Scalable Bloom Filter.
 
@@ -39,7 +39,7 @@ bf.include? "dog"
 #=> false
 ```
 
-Scalable Bloom filters use the same API:
+Scalable Bloom filters uses the same API:
 
 ```ruby
 b = Bloomer::Scalable.new
@@ -48,6 +48,7 @@ b.include? "boom"
 #=> true
 bf.include? "badda"
 #=> false
+```
 
 Serialization is through [Marshal](http://ruby-doc.org/core-1.8.7/Marshal.html):
 
