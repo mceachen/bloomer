@@ -9,8 +9,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Matthew McEachen"]
   s.email       = ["matthew+github@mceachen.org"]
   s.homepage    = "https://github.com/mceachen/bloomer"
-  s.summary     = %q{Pure-ruby bloom filter with minimal dependencies}
-  s.description = %q{Pure-ruby bloom filter with minimal dependencies}
+  s.summary     = %q{Pure-ruby scalable bloom filter}
+  s.description = %q{Bloomer implements both simple Bloom filters as well as Scalable Bloom Filters (SBF), in pure ruby and with minimal external dependencies}
 
   s.rubyforge_project = "bloomer"
 
