@@ -42,11 +42,7 @@ new_b.include? "a"
 ## History
 
 * 0.0.1 Bloom, there it is.
-
-* 0.0.2 Switch to triple hash chaining, which resulted in better, faster hashing (!!):
-
-    old multi-hash (v0.0.1): 92 sec, false positive rate = 1.27%, expected 1.0%
-    new md5 triple (v0.0.2): 66 sec, false positive rate = 1.116%, expected 1.0%
+* 0.0.2 Switch to triple-hash chaining (simpler, faster, and better false-positive rate)
 
 
 
