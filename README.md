@@ -1,5 +1,7 @@
 # Bloomer: Bloom filters with elastic
 
+[![Build Status](https://secure.travis-ci.org/mceachen/bloomer.png)](http://travis-ci.org/mceachen/bloomer)
+
 [Bloom filters](http://en.wikipedia.org/wiki/Bloom_filter) are great for quickly checking to see if
 a given string has been seen before--in constant time, and using a fixed amount of RAM, as long
 as you know the expected number of elements up front. If you add more than ```capacity``` elements to the filter,
