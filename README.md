@@ -65,6 +65,9 @@ new_b.include? "a"
 
 ## Changelog
 
+### 0.0.5
+* Switched from rspec to minitest
+
 ### 0.0.4
 * Fixed gem packaging
 
