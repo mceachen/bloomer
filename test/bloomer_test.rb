@@ -1,4 +1,4 @@
-require "spec_helper"
+require "test_helper"
 
 C = ('a'..'z').to_a
 def rand_word(length = 8)
@@ -12,7 +12,7 @@ def test_bloom(size, max_false_prob, bloom)
     bloom.add(w)
     set.add(w)
   end
-  set.each { |ea| bloom.include?(ea).should be_true }
+  set.each { |ea| bloom.must_include(ea) }
   tries = size * 3
   false_hits = 0
   hits = 0
@@ -38,37 +38,37 @@ def test_marshal_state(b)
   inputs = b.capacity.times.collect { rand_word }
   inputs.each { |ea| b.add(ea) }
   new_b = Marshal.load(Marshal.dump(b))
-  new_b.count.should == b.count
-  new_b.capacity.should == b.capacity
-  inputs.each { |ea| new_b.should include(ea) }
+  new_b.count.must_equal b.count
+  new_b.capacity.must_equal b.capacity
+  inputs.each { |ea| new_b.must_include(ea) }
 end
 
 def test_simple(b)
-  b.add("a").should be_true
-  b.add("a").should be_false
-  b.should include("a")
-  b.should_not include("")
-  b.should_not include("b")
-  b.add("b").should be_true
-  b.add("b").should be_false
-  b.should include("b")
-  b.should_not include("")
+  b.add("a").must_equal true
+  b.add("a").must_equal false
+  b.must_include("a")
+  b.wont_include("")
+  b.wont_include("b")
+  b.add("b").must_equal true
+  b.add("b").must_equal false
+  b.must_include("b")
+  b.wont_include("")
   b.add("")
-  b.should include("")
+  b.must_include("")
 end
 
 describe Bloomer do
-  it "should work trivially" do
+  it "works trivially" do
     b = Bloomer.new(10, 0.001)
     test_simple(b)
   end
 
-  it "should marshal state correctly" do
+  it "marshals state correctly" do
     b = Bloomer.new(10, 0.001)
     test_marshal_state(b)
   end
 
-  it "should result in similar-to-expected false positives" do
+  it "results in similar-to-expected false positives" do
     max_false_prob = 0.001
     size = 50_000
     b = Bloomer.new(size, max_false_prob)
@@ -77,25 +77,25 @@ describe Bloomer do
 end
 
 describe Bloomer::Scalable do
-  it "should work trivially" do
+  it "works trivially" do
     b = Bloomer::Scalable.new
     test_simple(b)
   end
 
-  it "should marshal state correctly" do
+  it "marshals state correctly" do
     b = Bloomer::Scalable.new(10, 0.001)
     100.times.each { b.add(rand_word) }
     test_marshal_state(b)
   end
 
-  it "should result in similar-to-expected false positives" do
+  it "results in similar-to-expected false positives" do
     max_false_prob = 0.001
     size = 10_000
     b = Bloomer::Scalable.new(1024, max_false_prob)
     test_bloom(size, max_false_prob, b)
   end
 
-  it "should result in similar-to-expected false positives" do
+  it "results in similar-to-expected false positives" do
     max_false_prob = 0.01
     size = 50_000
     b = Bloomer::Scalable.new(1024, max_false_prob)

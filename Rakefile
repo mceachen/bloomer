@@ -4,7 +4,13 @@ YARD::Rake::YardocTask.new do |t|
   t.files = ['lib/**/*.rb', 'README.md']
 end
 
-require "rspec/core/rake_task"
-RSpec::Core::RakeTask.new(:spec)
+require 'rake/testtask'
 
-task :default => :spec
+Rake::TestTask.new do |t|
+  t.libs.push "lib"
+  t.libs.push "test"
+  t.pattern = 'test/**/*_test.rb'
+  t.verbose = true
+end
+
+task :default => :test
