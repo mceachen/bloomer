@@ -20,6 +20,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_dependency "bitarray"
+  s.add_dependency "msgpack"
   s.add_development_dependency "rake"
   s.add_development_dependency "yard"
   s.add_development_dependency "minitest"

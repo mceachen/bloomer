@@ -1,6 +1,7 @@
 require "test_helper"
 
 C = ('a'..'z').to_a
+
 def rand_word(length = 8)
   C.shuffle.first(length).join # not random enough to cause hits.
 end
@@ -43,6 +44,20 @@ def test_marshal_state(b)
   inputs.each { |ea| new_b.must_include(ea) }
 end
 
+def test_msgpackable(b)
+  require "bloomer/msgpackable"
+  inputs = b.capacity.times.collect { rand_word }
+  inputs.each { |ea| b.add(ea) }
+  packed = b.to_msgpack
+  new_b = b.class.from_msgpack(packed)
+  new_b.count.must_equal b.count
+  new_b.capacity.must_equal b.capacity
+  inputs.each { |ea| new_b.must_include(ea) }
+  dump = Marshal.dump(b)
+  packed.size.must_be :<, dump.size
+  b.class.must_equal new_b.class
+end
+
 def test_simple(b)
   b.add("a").must_equal true
   b.add("a").must_equal false
@@ -68,6 +83,11 @@ describe Bloomer do
     test_marshal_state(b)
   end
 
+  it "serializes and deserializes correctly" do
+    b = Bloomer.new(10, 0.001)
+    test_msgpackable(b)
+  end
+
   it "results in similar-to-expected false positives" do
     max_false_prob = 0.001
     size = 50_000
@@ -86,6 +106,12 @@ describe Bloomer::Scalable do
     b = Bloomer::Scalable.new(10, 0.001)
     100.times.each { b.add(rand_word) }
     test_marshal_state(b)
+  end
+
+  it "serializes and deserializes correctly" do
+    b = Bloomer::Scalable.new(10, 0.001)
+    100.times.each { b.add(rand_word) }
+    test_msgpackable(b)
   end
 
   it "results in similar-to-expected false positives" do

@@ -52,18 +52,38 @@ bf.include? "badda"
 #=> false
 ```
 
-Serialization is through [Marshal](http://ruby-doc.org/core-1.8.7/Marshal.html):
+Serialization can be done using [MessagePack](https://github.com/msgpack/msgpack-ruby):
+
+Notice, you'll need to require `bloomer/msgpackable` to enable serialization.
 
 ```ruby
+require 'bloomer/msgpackable'
 b = Bloomer.new(10)
 b.add("a")
-s = Marshal.dump(b)
-new_b = Marshal.load(s)
+s = b.to_msgpack
+new_b = Bloomer.from_msgpack(s)
 new_b.include? "a"
 #=> true
 ```
 
+The original class will be preserved regardless of calling `Bloomer.from_msgpack(s)` or `Bloomer::Scalable.from_msgpack(s)`:
+
+```ruby
+require 'bloomer/msgpackable'
+b = Bloomer::Scalable.new
+b.add("a")
+s = b.to_msgpack
+new_b = Bloomer.from_msgpack(s)
+new_b.class == Bloomer::Scalable
+#=> true
+```
+
+
+
 ## Changelog
+
+### 0.0.6
+* Using msgpack for more secure deserialization. Marshal.load still works but is not recommended
 
 ### 0.0.5
 * Switched from rspec to minitest
